@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -26,8 +27,8 @@ public class View extends DesignerComponents implements IView{
                 e.printStackTrace();
             }
 
-            SetOriginalImage(myPicture);
-            SetResultingImage(myPicture);
+            setOriginalImage(myPicture);
+            setResultingImage(myPicture);
         }
 
         this.pack();
@@ -35,39 +36,51 @@ public class View extends DesignerComponents implements IView{
     }
 
     @Override
-    public void SetOriginalImage(BufferedImage image){
+    public void setOriginalImage(BufferedImage image){
         labelPictureOriginal.setIcon(new ImageIcon(image));
         labelPictureOriginal.setText("");
     }
 
     @Override
-    public void SetOriginalImage(Icon image) {
-        labelPictureOriginal.setIcon(image);
-    }
-
-    @Override
-    public void SetResultingImage(BufferedImage image){
+    public void setResultingImage(BufferedImage image){
         labelPictureResulting.setIcon(new ImageIcon(image));
         labelPictureResulting.setText("");
     }
 
     @Override
-    public void SetResultingImage(Icon image) {
-        labelPictureResulting.setIcon(image);
-    }
-
-    @Override
-    public void AddCopyListener(ActionListener listener) {
+    public void addCopyListener(ActionListener listener) {
         buttonCopy.addActionListener(listener);
     }
 
     @Override
-    public Icon getOriginalImage() {
-        return labelPictureOriginal.getIcon();
+    public BufferedImage getOriginalImage() {
+        Icon icon = labelPictureOriginal.getIcon();
+
+        BufferedImage bi = new BufferedImage(
+                icon.getIconWidth(),
+                icon.getIconHeight(),
+                BufferedImage.TYPE_INT_RGB);
+        Graphics g = bi.createGraphics();
+        // paint the Icon to the BufferedImage.
+        icon.paintIcon(null, g, 0,0);
+        g.dispose();
+
+        return bi;
     }
 
     @Override
-    public Icon getResultingImage() {
-        return labelPictureResulting.getIcon();
+    public BufferedImage getResultingImage() {
+        Icon icon = labelPictureResulting.getIcon();
+
+        BufferedImage bi = new BufferedImage(
+                icon.getIconWidth(),
+                icon.getIconHeight(),
+                BufferedImage.TYPE_INT_RGB);
+        Graphics g = bi.createGraphics();
+        // paint the Icon to the BufferedImage.
+        icon.paintIcon(null, g, 0,0);
+        g.dispose();
+
+        return bi;
     }
 }

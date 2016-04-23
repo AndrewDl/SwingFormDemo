@@ -6,7 +6,7 @@ public class SwingFormDemo {
         public static void main(String[] args) {
             IView view = new View();
             IModel model = new Model();
-            IPresenter presenter = new Presenter(view, model);
+            IController presenter = new Controller(view, model);
 
         }
 

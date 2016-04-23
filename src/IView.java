@@ -6,17 +6,13 @@ import java.awt.image.BufferedImage;
  * Created by Andrew on 23.04.2016.
  */
 public interface IView {
-    void SetOriginalImage(BufferedImage image);
+    void setOriginalImage(BufferedImage image);
 
-    void SetOriginalImage(Icon image);
+    void setResultingImage(BufferedImage image);
 
-    void SetResultingImage(BufferedImage image);
+    void addCopyListener(ActionListener listener);
 
-    void SetResultingImage(Icon image);
+    BufferedImage getOriginalImage();
 
-    void AddCopyListener(ActionListener listener);
-
-    Icon getOriginalImage();
-
-    Icon getResultingImage();
+    BufferedImage getResultingImage();
 }
