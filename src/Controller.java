@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -19,7 +20,15 @@ public class Controller implements IController {
         String path = "img/R2D2.jpg";
         File imageFile = new File(path);
 
-        view.addCopyListener(new ButtonCopyListener());
+        view.addCopyListener(
+                new ButtonCopyListener(){
+                    @Override public void actionPerformed(ActionEvent e){
+                        BufferedImage img = ImageProcessor.imageToGrey(view.getOriginalImage());
+                        img = ImageProcessor.binarizationTreshold(img,0x656565);
+                        view.setResultingImage(img);
+                    }
+                }
+        );
 
         if (imageFile.exists()) {
             try {
@@ -34,41 +43,6 @@ public class Controller implements IController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            BufferedImage testImage = view.getOriginalImage();
-
-            int treshold = 0x888888;
-
-            int rgbArray[][] = new int[640][480];
-
-            for (int i=0; i < testImage.getWidth(); i++)
-                for (int j=0; j < testImage.getHeight(); j++)
-                    //testImage.setRGB(i,j,testImage.getRGB(i,j)&0xFFFFFF);
-                {
-                    if (testImage.getRGB(i,j) > treshold )
-                        rgbArray[i][j] = 0x000000;
-                    else
-                        rgbArray[i][j] = 0xFFFFFF;
- /*                   if ((testImage.getRGB(i,j)>> 16 & 0xFF) > treshold )
-                        rgbArray[i][j] = rgbArray[i][j] | (0x00<<24);
-                    else
-                        rgbArray[i][j] = rgbArray[i][j] | (0xFF<<24);
-
-                    if ((testImage.getRGB(i,j)>> 8 & 0xFF) > treshold )
-                        rgbArray[i][j] = rgbArray[i][j] | (0x00<<8);
-                    else
-                        rgbArray[i][j] = rgbArray[i][j] | (0xFF<<8);
-
-                    if ((testImage.getRGB(i,j)>> 0 & 0xFF) > treshold )
-                        rgbArray[i][j] = rgbArray[i][j] | (0x00<<0);
-                    else
-                        rgbArray[i][j] = rgbArray[i][j] | (0xFF<<0);
-*/
-                    testImage.setRGB(i,j,rgbArray[i][j]);
-                }
-
-
-
-            view.setResultingImage(testImage);
 
         }
     }
