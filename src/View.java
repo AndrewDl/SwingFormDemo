@@ -56,22 +56,17 @@ public class View extends DesignerComponents implements IView{
     public BufferedImage getOriginalImage() {
         Icon icon = labelPictureOriginal.getIcon();
 
-        BufferedImage bi = new BufferedImage(
-                icon.getIconWidth(),
-                icon.getIconHeight(),
-                BufferedImage.TYPE_INT_RGB);
-        Graphics g = bi.createGraphics();
-        // paint the Icon to the BufferedImage.
-        icon.paintIcon(null, g, 0,0);
-        g.dispose();
-
-        return bi;
+        return getBufferedImage(icon);
     }
 
     @Override
     public BufferedImage getResultingImage() {
         Icon icon = labelPictureResulting.getIcon();
 
+        return getBufferedImage(icon);
+    }
+
+    private BufferedImage getBufferedImage(Icon icon) {
         BufferedImage bi = new BufferedImage(
                 icon.getIconWidth(),
                 icon.getIconHeight(),
